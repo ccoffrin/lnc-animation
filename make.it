@@ -1,0 +1,7 @@
+#!/bin/bash
+
+echo "making pdfs"
+R CMD BATCH --no-save --no-restore make.r
+
+echo "making gif"
+convert -density 200 -dispose previous lnc*.pdf lnc.gif

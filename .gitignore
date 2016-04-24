@@ -1,6 +1,11 @@
+# project specific files
+*.pdf
+*.gif
+
 # History files
 .Rhistory
 .Rapp.history
+*.Rout
 
 # Session Data files
 .RData
