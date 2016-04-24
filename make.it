@@ -1,7 +1,13 @@
 #!/bin/bash
 
+if [ ! -d "pdfs" ]
+then
+    echo "making pdfs directory"
+    mkdir pdfs
+fi
+
 echo "making pdfs"
 R CMD BATCH --no-save --no-restore make.r
 
 echo "making gif"
-convert -density 200 -dispose previous lnc*.pdf lnc.gif
+convert -density 200 -dispose previous pdfs/lnc*.pdf lnc.gif

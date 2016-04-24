@@ -7,11 +7,11 @@ animation_steps = 60
 
 #theta_ub = 0.261799 #15 degrees
 theta_ub = 0.52 #30 degrees
-vi_ub = 1.3
-vi_lb = 0.7
+vi_ub = 1.2
+vi_lb = 0.8
 
-vj_ub = 1.3
-vj_lb = 0.7
+vj_ub = 1.2
+vj_lb = 0.8
 
 vi_sigma = vi_ub+vi_lb
 vj_sigma = vj_ub+vj_lb
@@ -35,12 +35,13 @@ lnc2_color = "dodgerblue1"
 file_name_prefix = "lnc"
 
 vj_steps = seq(vj_lb, vj_ub, length.out=animation_steps)
+#vj_steps = c((vj_lb+vj_ub)/2)
 for (i in 1:length(vj_steps)) {
 
   vj_val = vj_steps[i]
   wj_val = vj_val^2
 
-  pdf(paste(file_name_prefix,"_",sprintf("%03d",i),".pdf",sep=""), pointsize=14, width=7, height=7)
+  pdf(paste("./pdfs/",file_name_prefix,"_",sprintf("%03d",i),".pdf",sep=""), pointsize=14, width=7, height=7, bg="white")
     x_lims = c(vi_lb*vj_lb*cos(theta_ub), vi_ub*vj_ub)
     y_lims = c(wi_lb, wi_ub)
     #print(x_lims)
@@ -68,13 +69,13 @@ for (i in 1:length(vj_steps)) {
     # lnc 1
     # vj_ub*cos(theta_ub)*vj_sigma*w_i == vi_sigma*vj_sigma*wr_ij - vi_ub*cos(theta_ub)*vi_sigma*w_j - vi_ub*vj_ub*cos(theta_ub)*(vi_lb*vj_lb - vi_ub*vj_ub) 
     lnc1_m = vi_sigma*vj_sigma/(vj_ub*cos(theta_ub)*vj_sigma)
-    lnc1_b = (-vi_ub*cos(theta_ub)*vi_sigma*wj_val - vi_ub*vj_ub*cos(theta_ub)*(vi_lb*vj_lb - vi_ub*vj_ub))/(vj_ub*cos(theta_ub)*vj_sigma)
+    lnc1_b = (-vi_ub*vi_sigma*wj_val - vi_ub*vj_ub*(vi_lb*vj_lb - vi_ub*vj_ub))/(vj_ub*vj_sigma)
     abline(lnc1_b, lnc1_m, col=lnc1_color, lwd=line_width)
    
     # lnc 2
     # vj_lb*cos(theta_ub)*vj_sigma*w_i  == vi_sigma*vj_sigma*wr_ij - vi_lb*cos(theta_ub)*vi_sigma*w_j - vi_lb*vj_lb*cos(theta_ub)*(vi_ub*vj_ub - vi_lb*vj_lb)
     lnc2_m = vi_sigma*vj_sigma/(vj_lb*cos(theta_ub)*vj_sigma)
-    lnc2_b = (-vi_lb*cos(theta_ub)*vi_sigma*wj_val - vi_lb*vj_lb*cos(theta_ub)*(vi_ub*vj_ub - vi_lb*vj_lb))/(vj_lb*cos(theta_ub)*vj_sigma)
+    lnc2_b = (-vi_lb*vi_sigma*wj_val - vi_lb*vj_lb*(vi_ub*vj_ub - vi_lb*vj_lb))/(vj_lb*vj_sigma)
     abline(lnc2_b, lnc2_m, col=lnc2_color, lwd=line_width)
 
     # documentation
