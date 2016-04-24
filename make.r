@@ -5,8 +5,8 @@
 
 animation_steps = 60
 
-#theta_ub = 0.261799 #15 degrees
-theta_ub = 0.52 #30 degrees
+#theta_ub = 0.261799 # 15 degrees in radians
+theta_ub = 0.5236 # 30 degrees in radians
 vi_ub = 1.2
 vi_lb = 0.8
 
